@@ -1,0 +1,2 @@
+# About credit-risk-prediction
+Repository ini berisi kode untuk membuat aplikasi web yang dapat memprediksi risiko kredit pelanggan berdasarkan beberapa fitur. Repository ini menggunakan Streamlit untuk membuat antarmuka pengguna yang interaktif dan Joblib untuk memuat model machine learning yang telah dilatih. Repository ini menggunakan data dari [credit_risk.csv], yang merupakan dataset fiktif yang dibuat oleh FTDS Curriculum Team.
