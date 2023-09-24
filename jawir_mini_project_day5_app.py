@@ -2,11 +2,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-st.header('FTDS Model Deployment')
-st.write("""
-Created by FTDS Curriculum Team
-Use the sidebar to select input features.
-""")
+st.title('Credit Risk Model Deployment')
+st.write('Created by Jawir Team')
+st.write('Use the sidebar to select input features')
 
 @st.cache_data
 def fetch_data():
@@ -17,22 +15,22 @@ def label_encode(data):
     return data.replace({'Y': 1, 'N': 0})
 
 df = fetch_data()
-st.write(df)
+st.dataframe(df, hide_index=True)
 
 st.sidebar.header('User Input Features')
 
 
 def user_input():
-    age = st.sidebar.number_input('Age', 0, value=0)
-    income = st.sidebar.number_input('Income', 0, value=0)
+    age = st.sidebar.number_input('Age', 0, value=20)
+    income = st.sidebar.number_input('Income', 0, value=4000, step=1000)
     home = st.sidebar.selectbox('Home', df['Home'].unique())
-    emp_length = st.sidebar.number_input('Emp_length', 0, value=0)
+    emp_length = st.sidebar.number_input('Emp_length', 0, value=5)
     intent = st.sidebar.selectbox('Intent', df['Intent'].unique())
-    amount = st.sidebar.number_input('Amount', 0, value=0)
-    rate = st.sidebar.number_input('Rate', 0, value=0)
-    percent_income = st.sidebar.number_input('Percent_income', 0.0, value=0.0)
+    amount = st.sidebar.number_input('Amount', 0, value=10000, step=1000)
+    rate = st.sidebar.number_input('Rate', 0.0, value=10.0, step=1.0)
+    percent_income = st.sidebar.number_input('Percent_income', 0.0, value=0.20, step=0.10)
     default = st.sidebar.selectbox('Default', df['Default'].unique())
-    cred_length = st.sidebar.number_input('Cred_length', 0, value=0)
+    cred_length = st.sidebar.number_input('Cred_length', 0, value=5)
 
     data = {
         'Age': age,
@@ -53,19 +51,19 @@ def user_input():
 input = user_input()
 
 st.subheader('User Input')
-st.write(input)
+st.dataframe(input)
 
 load_model = joblib.load("credit_risk_model.pkl")
 
 if st.button('Predict'):
     prediction = load_model.predict(input)
-
-    if prediction == 1:
-        prediction = 'Trusted'
-    else:
-        prediction = 'Not Trusted'
     
     st.write('Based on user input, the placement model predicted: ')
-    st.write(prediction)
+
+    if prediction == 1:
+        st.success('Trusted')
+    else:
+        st.error('Not Trusted')
+
 else:
     pass
