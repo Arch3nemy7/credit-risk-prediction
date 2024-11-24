@@ -8,7 +8,7 @@ st.write('Use the sidebar to select input features')
 
 @st.cache_data
 def fetch_data():
-    df = pd.read_csv('https://raw.githubusercontent.com/Freezer9/Dataset-ISE/main/credit_risk.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/Freezer9/My-Dataset/refs/heads/main/Dataset-ISE/credit_risk.csv')
     return df
 
 def label_encode(data):
